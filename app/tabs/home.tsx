@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Budget Overview</Text>
-            <Link href="/transactionForm" style={styles.link}>
+            <Link href="/tabs/transactionForm" style={styles.link}>
             Add Transaction
             </Link>
         </View>
