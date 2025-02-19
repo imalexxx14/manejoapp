@@ -5,7 +5,7 @@ export default function transactionForm(){
     const router = useRouter();
 
     return(
-        <view style={styles.container}>
+        <View style={styles.container}>
             <TextInput
             style={styles.input}
             placeholder="Amount"
@@ -17,7 +17,7 @@ export default function transactionForm(){
             />
             <Button title="Add transaction" onPress={() => router.back}/>
 
-            </view>
+            </View>
     );
 }
 
