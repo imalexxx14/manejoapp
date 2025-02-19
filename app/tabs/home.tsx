@@ -1,8 +1,36 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface Transaction {
+    id: string;
+    amount: number;
+    description: string;
+    date: string;
+}
 
 export default function Home() {
+    const [totalBalance, setTotalBalance] = useState(0);
+
+    useEffect(() => {
+        loadTotalBalance();
+    }, []);
+
+    const loadTotalBalance = async () => {
+        try {
+            const stored = await AsyncStorage.getItem('transactions');
+            if (stored) {
+                const transactions: Transaction[] = JSON.parse(stored);
+                const total = transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
+                setTotalBalance(total);
+            }
+        } catch (error) {
+            console.error('Error loading balance:', error);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -12,7 +40,12 @@ export default function Home() {
             <View style={styles.cardContainer}>
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Total Balance</Text>
-                    <Text style={styles.amount}>$0.00</Text>
+                    <Text style={[
+                        styles.amount,
+                        totalBalance < 0 ? styles.negative : styles.positive
+                    ]}>
+                        ${totalBalance.toFixed(2)}
+                    </Text>
                 </View>
             </View>
 
@@ -62,7 +95,12 @@ const styles = StyleSheet.create({
     amount: {
         fontSize: 32,
         fontWeight: 'bold',
+    },
+    positive: {
         color: '#2ecc71',
+    },
+    negative: {
+        color: '#e74c3c',
     },
     addButton: {
         backgroundColor: '#007AFF',
