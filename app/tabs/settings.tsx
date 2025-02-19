@@ -12,7 +12,6 @@ const CURRENCIES = [
 
 export default function Settings() {
     const { currency, updateCurrency } = useCurrency();
-
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Settings</Text>
@@ -27,7 +26,7 @@ export default function Settings() {
                                 styles.currencyButton,
                                 currencyOption.code === currency && styles.selectedCurrency
                             ]}
-                            onPress={() => updateCurrency(currencyOption.code)}
+                            onPress={() => {updateCurrency(currencyOption.code); console.log(currencyOption.code)}}
                         >
                             <Text style={[
                                 styles.currencyText,

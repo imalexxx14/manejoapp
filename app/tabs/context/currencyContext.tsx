@@ -23,7 +23,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         'USD': '$',
         'EUR': '€',
         'MXN': '$',
-        'COP': '$',
+        'DOP': 'DOP$',
     };
 
     useEffect(() => {
