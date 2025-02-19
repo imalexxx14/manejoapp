@@ -3,12 +3,12 @@ import { Link } from 'expo-router';
 
 export default function Home() {
     return (
-        <View style={styles.container}>
+        <view style={styles.container}>
             <Text style={styles.title}>Budget Overview</Text>
             <Link href="/tabs/transactionForm" style={styles.link}>
             Add Transaction
             </Link>
-        </View>
+        </view>
     );
 }
 

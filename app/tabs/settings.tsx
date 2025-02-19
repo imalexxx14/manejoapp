@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 
 export default function Settings() {
     return (
-        <View style={styles.container}>
+        <view style={styles.container}>
             <Text style={styles.title}>Settings</Text>
             <Link href="/tabs/currencySelect" style={styles.link}>
             Change Currency
             </Link>
             <Link href="/tabs/policyModel" style={styles.link}>
             </Link>
-        </View>
+        </view>
     );
 }
 

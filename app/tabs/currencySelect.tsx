@@ -7,7 +7,7 @@ export default function CurrencySelect(){
 const router = useRouter();
 
 return(
-<View style={styles.container}>
+<view style={styles.container}>
     <FlatList
     data={currencies}
     renderItem={({ item }) => (
@@ -19,7 +19,7 @@ return(
         </Pressable>
     )}
 />
-</View>
+</view>
 );
 }
 

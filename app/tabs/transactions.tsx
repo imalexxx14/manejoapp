@@ -2,14 +2,14 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 export default function Transactions() {
     return (
-        <View style={styles.container}>
+        <view style={styles.container}>
             <Text style = {styles.title}>Transactions</Text>
             <FlatList
                 data={[]}
                 renderItem={({item}) => null}
                 ListEmptyComponent={<Text>No transactions found</Text>}
             />
-        </View>
+        </view>
     );
 }
 
