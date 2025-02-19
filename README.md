@@ -1,4 +1,6 @@
 # Welcome to your Expo app 👋
+Manejo app es una app mobile en react native para manejar los gastos mensuales. 
+En ella tenemos un home page, donde se pueden ver el total de gastos, se pueden registrar gastos, se puede elegir el currency de el gasto o transaccion y hay un tab donde se pueden ver todos los gastos hechos y su fecha.
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
