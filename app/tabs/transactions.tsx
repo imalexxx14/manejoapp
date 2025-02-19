@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCurrency } from '../tabs/context/currencyContext';
 
 interface Transaction {
     id: string;
@@ -10,6 +11,7 @@ interface Transaction {
 }
 
 export default function Transactions() {
+    const { symbol } = useCurrency();
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function Transactions() {
         <View style={styles.transactionCard}>
             <View style={styles.transactionHeader}>
                 <Text style={styles.amount}>
-                    ${item.amount.toFixed(2)}
+                    {symbol}{item.amount.toFixed(2)}
                 </Text>
                 <Text style={styles.date}>{formatDate(item.date)}</Text>
             </View>

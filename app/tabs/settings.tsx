@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCurrency } from '../tabs/context/currencyContext';
 
 const CURRENCIES = [
     { code: 'USD', symbol: '$' },
@@ -10,31 +11,7 @@ const CURRENCIES = [
 ];
 
 export default function Settings() {
-    const [selectedCurrency, setSelectedCurrency] = useState('USD');
-
-    useEffect(() => {
-        loadCurrency();
-    }, []);
-
-    const loadCurrency = async () => {
-        try {
-            const currency = await AsyncStorage.getItem('currency');
-            if (currency) {
-                setSelectedCurrency(currency);
-            }
-        } catch (error) {
-            console.error('Error loading currency:', error);
-        }
-    };
-
-    const changeCurrency = async (currencyCode: string) => {
-        try {
-            await AsyncStorage.setItem('currency', currencyCode);
-            setSelectedCurrency(currencyCode);
-        } catch (error) {
-            console.error('Error saving currency:', error);
-        }
-    };
+    const { currency, updateCurrency } = useCurrency();
 
     return (
         <View style={styles.container}>
@@ -43,20 +20,20 @@ export default function Settings() {
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Select Currency</Text>
                 <View style={styles.currencyGrid}>
-                    {CURRENCIES.map((currency) => (
+                    {CURRENCIES.map((currencyOption) => (
                         <TouchableOpacity
-                            key={currency.code}
+                            key={currencyOption.code}
                             style={[
                                 styles.currencyButton,
-                                selectedCurrency === currency.code && styles.selectedCurrency
+                                currencyOption.code === currency && styles.selectedCurrency
                             ]}
-                            onPress={() => changeCurrency(currency.code)}
+                            onPress={() => updateCurrency(currencyOption.code)}
                         >
                             <Text style={[
                                 styles.currencyText,
-                                selectedCurrency === currency.code && styles.selectedCurrencyText
+                                currencyOption.code === currency && styles.selectedCurrencyText
                             ]}>
-                                {currency.symbol} {currency.code}
+                                {currencyOption.symbol} {currencyOption.code}
                             </Text>
                         </TouchableOpacity>
                     ))}

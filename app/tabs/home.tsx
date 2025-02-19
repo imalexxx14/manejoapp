@@ -3,6 +3,7 @@ import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCurrency } from'../tabs/context/currencyContext';
 
 interface Transaction {
     id: string;
@@ -12,6 +13,7 @@ interface Transaction {
 }
 
 export default function Home() {
+    const { symbol } = useCurrency();
     const [totalBalance, setTotalBalance] = useState(0);
 
     useEffect(() => {
@@ -44,7 +46,7 @@ export default function Home() {
                         styles.amount,
                         totalBalance < 0 ? styles.negative : styles.positive
                     ]}>
-                        ${totalBalance.toFixed(2)}
+                        {symbol}{totalBalance.toFixed(2)}
                     </Text>
                 </View>
             </View>
