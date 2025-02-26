@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,  useCallback,  } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCurrency } from'../tabs/context/currencyContext';
+import { useFocusEffect } from '@react-navigation/native'
 
 interface Transaction {
     id: string;
@@ -16,9 +17,11 @@ export default function Home() {
     const { symbol } = useCurrency();
     const [totalBalance, setTotalBalance] = useState(0);
 
-    useEffect(() => {
-        loadTotalBalance();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            loadTotalBalance();
+        }, [])
+    );
 
     const loadTotalBalance = async () => {
         try {
@@ -27,6 +30,7 @@ export default function Home() {
                 const transactions: Transaction[] = JSON.parse(stored);
                 const total = transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
                 setTotalBalance(total);
+                console.log(total);
             }
         } catch (error) {
             console.error('Error loading balance:', error);
